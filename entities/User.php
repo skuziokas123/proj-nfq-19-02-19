@@ -11,6 +11,18 @@ class User
         
     /** @Column(type="string") **/
     protected $email;
+	
+	/**
+     * @Column(type="datetime")
+     * @var DateTime
+     */
+    protected $updated;
+	
+	/**
+     * @Column(type="datetime")
+     * @var DateTime
+     */
+    protected $created;
     
     
     public function __construct(string $name, string $email)

@@ -20,6 +20,16 @@ class Reservation
      * @var DateTime
      */
     protected $created;
+	
+	/**
+     * @ManyToOne(targetEntity="Worker")
+     **/
+	protected $worker;
+	
+	/**
+     * @ManyToOne(targetEntity="Customer")
+     **/
+	protected $customer;
     
     
     public function __construct(string $name)

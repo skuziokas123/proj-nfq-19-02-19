@@ -8,6 +8,18 @@ class Worker
     protected $id;
     /** @Column(type="string") **/
     protected $name;
+	
+	/**
+     * @Column(type="datetime")
+     * @var DateTime
+     */
+    protected $updated;
+	
+	/**
+     * @Column(type="datetime")
+     * @var DateTime
+     */
+    protected $created;
     
     
     public function __construct(string $name)
