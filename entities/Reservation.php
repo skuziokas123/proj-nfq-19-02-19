@@ -45,7 +45,8 @@ class Reservation
     }
     # Accessors
     public function getId() : int { return $this->id; }
-    //public function getName() : string { return $this->name; }
-    //public function getEmail() : string { return $this->email; }
+	public function getVisitDate() : datetime { return $this->visitDate; }
+    public function getWorker() : Worker { return $this->worker; }
+    public function getCustomer() : Customer { return $this->customer; }
 	
 }

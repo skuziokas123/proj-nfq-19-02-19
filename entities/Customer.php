@@ -22,9 +22,9 @@ class Customer
     protected $created;
     
     
-    public function __construct(string $name)
+    public function __construct()
     {
-        $this->name = $name;
+        //$this->name = $name;
         //$this->email = $email;
     }
     # Accessors
