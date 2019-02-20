@@ -8,6 +8,18 @@ class Customer
     protected $id;
     /** @Column(type="string") **/
     protected $name;
+	
+	/**
+     * @Column(type="datetime", nullable=true)
+     * @var DateTime
+     */
+    protected $updated;
+	
+	/**
+     * @Column(type="datetime", nullable=true)
+     * @var DateTime
+     */
+    protected $created;
     
     
     public function __construct(string $name)

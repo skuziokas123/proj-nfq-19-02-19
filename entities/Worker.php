@@ -10,13 +10,13 @@ class Worker
     protected $name;
 	
 	/**
-     * @Column(type="datetime")
+     * @Column(type="datetime", nullable=true)
      * @var DateTime
      */
     protected $updated;
 	
 	/**
-     * @Column(type="datetime")
+     * @Column(type="datetime", nullable=true)
      * @var DateTime
      */
     protected $created;

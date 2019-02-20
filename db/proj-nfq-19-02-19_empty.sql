@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 20, 2019 at 09:36 AM
+-- Generation Time: Feb 20, 2019 at 03:46 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -32,6 +32,8 @@ DROP TABLE IF EXISTS `customer`;
 CREATE TABLE IF NOT EXISTS `customer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `updated` datetime DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -46,9 +48,9 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `worker_id` int(11) DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `updated` datetime NOT NULL,
-  `created` datetime NOT NULL,
+  `updated` datetime DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `visitDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_42C849556B20BA36` (`worker_id`),
   KEY `IDX_42C849559395C3F3` (`customer_id`)
@@ -64,8 +66,8 @@ DROP TABLE IF EXISTS `worker`;
 CREATE TABLE IF NOT EXISTS `worker` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `updated` datetime NOT NULL,
-  `created` datetime NOT NULL,
+  `updated` datetime DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
