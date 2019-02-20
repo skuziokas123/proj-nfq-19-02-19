@@ -1,6 +1,6 @@
 <?php
 /**
- * @Entity @Table(name="customers")
+ * @Entity @Table(name="customer")
  **/
 class Customer
 {

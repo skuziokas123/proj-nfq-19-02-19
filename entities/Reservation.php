@@ -1,6 +1,6 @@
 <?php
 /**
- * @Entity @Table(name="reservations")
+ * @Entity @Table(name="reservation")
  **/
 class Reservation
 {

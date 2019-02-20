@@ -1,5 +1,5 @@
-<?php
-/**
+<php
+/*
  * @Entity @Table(name="user")
  **/
 class User
