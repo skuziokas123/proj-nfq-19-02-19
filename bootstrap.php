@@ -30,19 +30,15 @@ function getEntityManager($dbParams) : \Doctrine\ORM\EntityManager
         );*/
         //$entityManager = \Doctrine\ORM\EntityManager::create($connectionParams, $config);
 		
-		$dbParams = array(
-			'driver'         => 'pdo_mysql',
-			//'user'           => '2969212_projnfq',
-			'user'           => 'root',
-			//'password'       => 'dsdsdfdAs.1',
-			'password'       => '',
-			//'host'           => 'fdb25.awardspace.net',
-			'host'           => '127.0.0.1',
-			'port'           => 3306,
-			//'dbname'         => '2969212_projnfq',
-			'dbname'         => 'proj-nfq-19-02-19',
+		//$dbParams = array(
+			//'driver'         => 'pdo_mysql',
+			//'user'           => 'root',
+			//'password'       => '',
+			//'host'           => '127.0.0.1',
+			//'port'           => 3306,
+			//'dbname'         => 'proj-nfq-19-02-19',
 			//'charset'        => 'UTF-8',
-		);
+		//);
 		
 		$entityManager = \Doctrine\ORM\EntityManager::create($dbParams, $config);
 
