@@ -8,6 +8,6 @@ composer install
  
  edit .\config\db-config.php
  
- ./app/cache/dev - writable
+ .\app\cache\dev - writable
  
  demo http://proj-nfq-19-02-19.atwebpages.com
