@@ -199,4 +199,15 @@ class Customer extends \Customer implements \Doctrine\ORM\Proxy\Proxy
         return parent::getName();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function setName($name)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setName', [$name]);
+
+        return parent::setName($name);
+    }
+
 }

@@ -49,4 +49,8 @@ class Reservation
     public function getWorker() : Worker { return $this->worker; }
     public function getCustomer() : Customer { return $this->customer; }
 	
+	public function setVisitDate($visitDate){  $this->visitDate=$visitDate; }
+	public function setWorker($worker){  $this->worker=$worker; }
+    public function setCustomer($customer){  $this->customer=$customer; }
+	
 }

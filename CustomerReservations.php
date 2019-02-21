@@ -1,6 +1,8 @@
 <?php
 
 include 'header.php';
+require_once(__DIR__ . '/config/db-config.php');
+require_once('bootstrap.php');
 
 $name="";
 $nameErr="";
@@ -20,6 +22,33 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		$name = test_input($_GET["name"]);
 		$dateTime = test_input($_GET["dateTime"]);
 		//echo "dateTime = ".$dateTime;
+		$entityManager = getEntityManager($dbParamsConfig);
+		$customer=$entityManager->getRepository("Customer")->findBy(
+             array('name'=> $name) 
+             //array('id' => 'ASC')
+        );
+		//var
+		//print_r($customer);
+		if(!empty($customer)){
+			//echo "<h1>customer not empty</h1>";
+		}else{
+			$customer=new Customer();
+			$customer->setName($name);
+			$entityManager->persist($customer);
+			$entityManager->flush();
+			$customerTmp=$customer;
+			$customer=array();
+			$customer[0]=$customerTmp;
+			
+		}
+		$reservation=new Reservation();
+		$reservation->setCustomer($customer[0]);
+		$reservation->setVisitDate(new DateTime($dateTime));
+		
+		$worker=$entityManager->getRepository("Worker")->findAll();
+		$reservation->setWorker($worker[0]);
+		$entityManager->persist($reservation);
+		$entityManager->flush();
 	}
 	
 }
