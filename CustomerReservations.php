@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	if (empty($_GET["name"])) {
-		$nameErr = "Vardas privalomas";
+		//$nameErr = "Vardas privalomas";
 	}else{
 		$name = test_input($_GET["name"]);
 		$dateTime = test_input($_GET["dateTime"]);
