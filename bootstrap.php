@@ -19,7 +19,7 @@ function getEntityManager($dbParams) : \Doctrine\ORM\EntityManager
 		$config = new \Doctrine\ORM\Configuration;
 		$driverImpl = $config->newDefaultAnnotationDriver(__DIR__ . '/entities');
 		$config->setMetadataDriverImpl($driverImpl);
-		$config->setProxyDir('/app/cache/dev');
+		$config->setProxyDir('./app/cache/dev');
 		$config->setProxyNamespace('Proxies');
 		
         # set up configuration parameters for doctrine.
