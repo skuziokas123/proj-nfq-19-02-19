@@ -2,6 +2,11 @@
 <html>
 <head>
 <title>Kirpykla online</title>
+
+<style>
+.error {color: #FF0000;}
+</style>
+
 </head>
 <body>
 
