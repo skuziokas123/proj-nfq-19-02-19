@@ -1,12 +1,13 @@
 <?php
 
 include 'header.php';
+require_once(__DIR__ . '/config/db-config.php');
 
 //ini_set('memory_limit', '-1');
 
 require_once('bootstrap.php');
 // create a user
-$entityManager = getEntityManager();
+$entityManager = getEntityManager($dbParamsConfig);
 
 //exit();
 

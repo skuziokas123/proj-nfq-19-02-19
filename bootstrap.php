@@ -1,18 +1,27 @@
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
+//require_once(__DIR__ . '/config/db-config.php');
+
 $classDirs = array(
     __DIR__,
     __DIR__ . '/entities',
 );
 new \iRAP\Autoloader\Autoloader($classDirs);
-function getEntityManager() : \Doctrine\ORM\EntityManager
+function getEntityManager($dbParams) : \Doctrine\ORM\EntityManager
 {
     $entityManager = null;
     
     if ($entityManager === null)
     {
-        $paths = array(__DIR__ . '/entities');
-        $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration($paths);
+        //$paths = array(__DIR__ . '/entities');
+        //$config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration($paths);
+		
+		$config = new \Doctrine\ORM\Configuration;
+		$driverImpl = $config->newDefaultAnnotationDriver(__DIR__ . '/entities');
+		$config->setMetadataDriverImpl($driverImpl);
+		$config->setProxyDir('/app/cache/dev');
+		$config->setProxyNamespace('Proxies');
+		
         # set up configuration parameters for doctrine.
         # Make sure you have installed the php7.0-sqlite package.
         /*$connectionParams = array(
@@ -23,10 +32,14 @@ function getEntityManager() : \Doctrine\ORM\EntityManager
 		
 		$dbParams = array(
 			'driver'         => 'pdo_mysql',
+			//'user'           => '2969212_projnfq',
 			'user'           => 'root',
+			//'password'       => 'dsdsdfdAs.1',
 			'password'       => '',
+			//'host'           => 'fdb25.awardspace.net',
 			'host'           => '127.0.0.1',
 			'port'           => 3306,
+			//'dbname'         => '2969212_projnfq',
 			'dbname'         => 'proj-nfq-19-02-19',
 			//'charset'        => 'UTF-8',
 		);
