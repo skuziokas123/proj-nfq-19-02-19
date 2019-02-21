@@ -6,8 +6,8 @@ composer install
  
  .\config\db-config-dist.php rename to  .\config\db-config.php
  
- edit .\config\db-config.php
+ edit - .\config\db-config.php
  
- .\app\cache\dev - writable
+ writable - .\app\cache\dev
  
- demo http://proj-nfq-19-02-19.atwebpages.com
+ demo: http://proj-nfq-19-02-19.atwebpages.com
