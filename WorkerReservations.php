@@ -31,12 +31,40 @@ if (($_SERVER["REQUEST_METHOD"] == "GET")&&(isset($_GET["action"]))) {
 //exit();
 
 // List all users:
-$reservations = $entityManager->getRepository("Reservation")->findAll();
+//$reservations = $entityManager->getRepository("Reservation")->findAll();
+
+$reservations=$entityManager->createQuery(
+	'SELECT r FROM Reservation r WHERE (r.status <> 1) OR (r.status is NULL)'
+)->getResult();
+
+/*$parameters = array(
+            //'from' => $from,
+            'to' => $to,
+        );*/
+
+//->getResult();
+
+
+
+
+
+/*$status=$entityManager->getRepository("Status")->findBy(
+             array('id'=> 1) 
+             //array('id' => 'ASC')
+        );*/
+
+//$criteria = new \Doctrine\Common\Collections\Criteria();
+//$criteria->where(\Doctrine\Common\Collections\Criteria::expr()->neq('status', $status[0]));
+//$reservations = $entityManager->getRepository("Reservation")->matching($criteria);
+
+//print_r($reservations);
 
 //exit();
 
 //print "Reservations: " . print_r($reservations, true) . PHP_EOL;
 //echo $reservations[0]->getId();
+
+if(!empty($reservations)){
 
 echo "<h3>Rezervacijos</h3>";
 
@@ -64,5 +92,9 @@ foreach($reservations as $reser){
 }
 
 echo "</table>";
+}else{
+	echo "<h3>Rezervacijų sąrašas tuščias</h3>";
+}
+
 
 include 'footer.php';

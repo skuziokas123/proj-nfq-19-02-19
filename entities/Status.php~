@@ -15,18 +15,4 @@ class Status
 	
 	
 	
-
-    /**
-     * Set name.
-     *
-     * @param string $name
-     *
-     * @return Status
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
 }

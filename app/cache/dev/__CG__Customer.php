@@ -210,4 +210,48 @@ class Customer extends \Customer implements \Doctrine\ORM\Proxy\Proxy
         return parent::setName($name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function setUpdated($updated = NULL)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUpdated', [$updated]);
+
+        return parent::setUpdated($updated);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getUpdated()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUpdated', []);
+
+        return parent::getUpdated();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreated($created = NULL)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCreated', [$created]);
+
+        return parent::setCreated($created);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getCreated()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCreated', []);
+
+        return parent::getCreated();
+    }
+
 }
