@@ -2,12 +2,31 @@
 
 include 'header.php';
 require_once(__DIR__ . '/config/db-config.php');
+require_once('functions.php');
 
 //ini_set('memory_limit', '-1');
 
 require_once('bootstrap.php');
 // create a user
 $entityManager = getEntityManager($dbParamsConfig);
+
+if (($_SERVER["REQUEST_METHOD"] == "GET")&&(isset($_GET["action"]))) {
+	if (($_GET["action"])=="cancelReservation") {
+		//echo "action=cancelReservation";
+		$id = test_input($_GET["id"]);
+		$reservation=$entityManager->getRepository("Reservation")->findBy(
+             array('id'=> $id) 
+             //array('id' => 'ASC')
+        );
+		$status=$entityManager->getRepository("Status")->findBy(
+             array('id'=> 1) 
+             //array('id' => 'ASC')
+        );
+		$reservation[0]->setStatus($status[0]);
+		$entityManager->persist($reservation[0]);
+		$entityManager->flush();
+	}
+}
 
 //exit();
 

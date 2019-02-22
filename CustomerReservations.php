@@ -3,6 +3,7 @@
 include 'header.php';
 require_once(__DIR__ . '/config/db-config.php');
 require_once('bootstrap.php');
+require_once('functions.php');
 
 $name="";
 $nameErr="";
@@ -53,12 +54,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	
 }
 
-function test_input($data) {
+/*function test_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
-}
+}*/
 
 ?>
 
