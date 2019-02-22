@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 20, 2019 at 05:14 PM
+-- Generation Time: Feb 22, 2019 at 06:08 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `updated` datetime DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `customer`
@@ -43,7 +43,15 @@ CREATE TABLE IF NOT EXISTS `customer` (
 
 INSERT INTO `customer` (`id`, `name`, `updated`, `created`) VALUES
 (1, 'Vilma', NULL, NULL),
-(2, 'Irena', NULL, NULL);
+(2, 'Irena', NULL, NULL),
+(3, 'fff', NULL, NULL),
+(4, 'jkhjkhkj', NULL, NULL),
+(5, 'jkhjkhkjlll', NULL, NULL),
+(6, 'jhgj', NULL, NULL),
+(7, 'jhgjkk', NULL, NULL),
+(8, 'jhgjkkjhjh', NULL, NULL),
+(9, 'jhj', NULL, NULL),
+(10, 'Giedrius', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -59,18 +67,47 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `updated` datetime DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `visitDate` datetime DEFAULT NULL,
+  `status_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_42C849556B20BA36` (`worker_id`),
-  KEY `IDX_42C849559395C3F3` (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  KEY `IDX_42C849559395C3F3` (`customer_id`),
+  KEY `IDX_42C849556BF700BD` (`status_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `reservation`
 --
 
-INSERT INTO `reservation` (`id`, `worker_id`, `customer_id`, `updated`, `created`, `visitDate`) VALUES
-(1, 2, 2, '2019-02-20 00:00:00', '2019-02-20 00:00:00', '2019-02-21 10:00:00'),
-(2, 1, 1, '2019-02-20 00:00:00', '2019-02-20 00:00:00', '2019-02-21 15:00:00');
+INSERT INTO `reservation` (`id`, `worker_id`, `customer_id`, `updated`, `created`, `visitDate`, `status_id`) VALUES
+(1, 2, 2, '2019-02-20 00:00:00', '2019-02-20 00:00:00', '2019-02-21 10:00:00', NULL),
+(2, 1, 1, '2019-02-20 00:00:00', '2019-02-20 00:00:00', '2019-02-21 15:00:00', NULL),
+(3, 1, 9, NULL, NULL, '2019-02-22 10:00:00', NULL),
+(4, 1, 9, NULL, NULL, '2019-02-22 10:15:00', NULL),
+(5, 1, 9, NULL, NULL, '2019-02-22 10:15:00', NULL),
+(6, 1, 10, NULL, NULL, '2019-02-22 10:00:00', NULL),
+(7, 1, 10, NULL, NULL, '2019-02-22 10:30:00', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status`
+--
+
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE IF NOT EXISTS `status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `status`
+--
+
+INSERT INTO `status` (`id`, `name`) VALUES
+(1, 'Atšaukta'),
+(2, 'Atlikta'),
+(3, 'Registruota');
 
 -- --------------------------------------------------------
 
@@ -104,6 +141,7 @@ INSERT INTO `worker` (`id`, `name`, `updated`, `created`) VALUES
 --
 ALTER TABLE `reservation`
   ADD CONSTRAINT `FK_42C849556B20BA36` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`id`),
+  ADD CONSTRAINT `FK_42C849556BF700BD` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`),
   ADD CONSTRAINT `FK_42C849559395C3F3` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`);
 COMMIT;
 

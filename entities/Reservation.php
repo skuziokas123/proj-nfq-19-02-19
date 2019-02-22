@@ -36,6 +36,11 @@ class Reservation
      * @ManyToOne(targetEntity="Customer")
      **/
 	protected $customer;
+	
+	/**
+     * @ManyToOne(targetEntity="Status")
+     **/
+	protected $status;
     
     
     public function __construct()
@@ -48,9 +53,11 @@ class Reservation
 	public function getVisitDate() : datetime { return $this->visitDate; }
     public function getWorker() : Worker { return $this->worker; }
     public function getCustomer() : Customer { return $this->customer; }
+	public function getStatus() : Status { return $this->status; }
 	
 	public function setVisitDate($visitDate){  $this->visitDate=$visitDate; }
 	public function setWorker($worker){  $this->worker=$worker; }
     public function setCustomer($customer){  $this->customer=$customer; }
+	public function setStatus($status){  $this->status=$status; }
 	
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 20, 2019 at 03:46 PM
+-- Generation Time: Feb 22, 2019 at 06:08 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -51,9 +51,24 @@ CREATE TABLE IF NOT EXISTS `reservation` (
   `updated` datetime DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `visitDate` datetime DEFAULT NULL,
+  `status_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_42C849556B20BA36` (`worker_id`),
-  KEY `IDX_42C849559395C3F3` (`customer_id`)
+  KEY `IDX_42C849559395C3F3` (`customer_id`),
+  KEY `IDX_42C849556BF700BD` (`status_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `status`
+--
+
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE IF NOT EXISTS `status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -80,6 +95,7 @@ CREATE TABLE IF NOT EXISTS `worker` (
 --
 ALTER TABLE `reservation`
   ADD CONSTRAINT `FK_42C849556B20BA36` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`id`),
+  ADD CONSTRAINT `FK_42C849556BF700BD` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`),
   ADD CONSTRAINT `FK_42C849559395C3F3` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`);
 COMMIT;
 
