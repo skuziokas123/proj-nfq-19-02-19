@@ -1,6 +1,11 @@
 <?php
 
-$dbParamsConfig = array(
+	
+class DbConfig {
+
+	
+	public function getDbParamsConfig(){
+		return array(
 			'driver'         => 'pdo_mysql',
 			'user'           => 'root',
 			'password'       => '',
@@ -8,3 +13,6 @@ $dbParamsConfig = array(
 			'port'           => 3306,
 			'dbname'         => 'proj-nfq-19-02-19',
 		);
+	}
+	
+}

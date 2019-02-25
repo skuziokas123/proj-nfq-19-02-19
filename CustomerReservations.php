@@ -37,7 +37,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		
 		$dateTime = test_input($_GET["dateTime"]);
 		//echo "dateTime = ".$dateTime;
-		$entityManager = getEntityManager($dbParamsConfig);
+		//$entityManager = getEntityManager($dbParamsConfig);
+		
+		$entityManager = $container->getEntityManager();
+		
+		
 		$customer=$entityManager->getRepository("Customer")->findBy(
              array('name'=> $name) 
              //array('id' => 'ASC')
@@ -120,7 +124,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   <option value="">--Pasirinkite--</option>
   
   <?php
-	$entityManager = getEntityManager($dbParamsConfig);
+	//$entityManager = getEntityManager($dbParamsConfig);
+	
+	$entityManager = $container->getEntityManager();
+	
 	$workers=$entityManager->getRepository("Worker")->findAll();
 	
 	foreach($workers as $worker){

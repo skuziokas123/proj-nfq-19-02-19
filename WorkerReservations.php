@@ -8,7 +8,9 @@ require_once('functions.php');
 
 require_once('bootstrap.php');
 // create a user
-$entityManager = getEntityManager($dbParamsConfig);
+//$entityManager = getEntityManager($dbParamsConfig);
+
+$entityManager = $container->getEntityManager();
 
 if (($_SERVER["REQUEST_METHOD"] == "GET")&&(isset($_GET["action"]))) {
 	if (($_GET["action"])=="cancelReservation") {
