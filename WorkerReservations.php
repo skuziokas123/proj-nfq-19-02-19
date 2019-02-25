@@ -35,9 +35,13 @@ if (($_SERVER["REQUEST_METHOD"] == "GET")&&(isset($_GET["action"]))) {
 // List all users:
 //$reservations = $entityManager->getRepository("Reservation")->findAll();
 
-$reservations=$entityManager->createQuery(
+//$reservations = $entityManager->getRepository("Reservation")->findActiveReservations();
+
+$reservations = $container->getReservationRepository()->findActiveReservations();
+
+/*$reservations=$entityManager->createQuery(
 	'SELECT r FROM Reservation r WHERE (r.status <> 1) OR (r.status is NULL)'
-)->getResult();
+)->getResult();*/
 
 /*$parameters = array(
             //'from' => $from,

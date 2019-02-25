@@ -6,6 +6,7 @@ $classDirs = array(
     __DIR__,
     __DIR__ . '/entities',
 	__DIR__ . '/src/AppBundle/Service',
+	__DIR__ . '/src/AppBundle/Repository',
 );
 new \iRAP\Autoloader\Autoloader($classDirs);
 
