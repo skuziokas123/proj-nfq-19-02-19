@@ -60,7 +60,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		
 		if((isset($_GET["action"]))&&($_GET["action"]=="cancelReservation")){
 			$id = test_input($_GET["id"]);
-			$reservation=$entityManager->getRepository("Reservation")->findBy(
+			
+			$container->getReservationRepository()->cancelReservation($id);
+			
+			/*$reservation=$entityManager->getRepository("Reservation")->findBy(
 				 array('id'=> $id) 
 
 			);
@@ -69,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			);
 			$reservation[0]->setStatus($status[0]);
 			$entityManager->persist($reservation[0]);
-			$entityManager->flush();
+			$entityManager->flush();*/
 	
 			$reservation="";
 			
