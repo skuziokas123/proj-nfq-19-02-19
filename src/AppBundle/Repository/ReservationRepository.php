@@ -34,4 +34,20 @@ class ReservationRepository
 		)->getResult();
 	}
 	
+	public function cancelReservation($id){
+		
+		$reservation=$this->entityManager->getRepository("Reservation")->findBy(
+             array('id'=> $id) 
+             //array('id' => 'ASC')
+        );
+		$status=$this->entityManager->getRepository("Status")->findBy(
+             array('id'=> 1) 
+             //array('id' => 'ASC')
+        );
+		$reservation[0]->setStatus($status[0]);
+		$this->entityManager->persist($reservation[0]);
+		$this->entityManager->flush();
+		
+	}
+	
 }

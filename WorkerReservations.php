@@ -4,11 +4,8 @@ include 'header.php';
 require_once(__DIR__ . '/config/db-config.php');
 require_once('functions.php');
 
-//ini_set('memory_limit', '-1');
-
 require_once('bootstrap.php');
-// create a user
-//$entityManager = getEntityManager($dbParamsConfig);
+
 
 $entityManager = $container->getEntityManager();
 
@@ -16,7 +13,10 @@ if (($_SERVER["REQUEST_METHOD"] == "GET")&&(isset($_GET["action"]))) {
 	if (($_GET["action"])=="cancelReservation") {
 		//echo "action=cancelReservation";
 		$id = test_input($_GET["id"]);
-		$reservation=$entityManager->getRepository("Reservation")->findBy(
+		
+		$container->getReservationRepository()->cancelReservation($id);
+		
+		/*$reservation=$entityManager->getRepository("Reservation")->findBy(
              array('id'=> $id) 
              //array('id' => 'ASC')
         );
@@ -26,49 +26,11 @@ if (($_SERVER["REQUEST_METHOD"] == "GET")&&(isset($_GET["action"]))) {
         );
 		$reservation[0]->setStatus($status[0]);
 		$entityManager->persist($reservation[0]);
-		$entityManager->flush();
+		$entityManager->flush();*/
 	}
 }
 
-//exit();
-
-// List all users:
-//$reservations = $entityManager->getRepository("Reservation")->findAll();
-
-//$reservations = $entityManager->getRepository("Reservation")->findActiveReservations();
-
 $reservations = $container->getReservationRepository()->findActiveReservations();
-
-/*$reservations=$entityManager->createQuery(
-	'SELECT r FROM Reservation r WHERE (r.status <> 1) OR (r.status is NULL)'
-)->getResult();*/
-
-/*$parameters = array(
-            //'from' => $from,
-            'to' => $to,
-        );*/
-
-//->getResult();
-
-
-
-
-
-/*$status=$entityManager->getRepository("Status")->findBy(
-             array('id'=> 1) 
-             //array('id' => 'ASC')
-        );*/
-
-//$criteria = new \Doctrine\Common\Collections\Criteria();
-//$criteria->where(\Doctrine\Common\Collections\Criteria::expr()->neq('status', $status[0]));
-//$reservations = $entityManager->getRepository("Reservation")->matching($criteria);
-
-//print_r($reservations);
-
-//exit();
-
-//print "Reservations: " . print_r($reservations, true) . PHP_EOL;
-//echo $reservations[0]->getId();
 
 if(!empty($reservations)){
 
