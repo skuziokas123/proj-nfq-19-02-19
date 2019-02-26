@@ -23,33 +23,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$selectWorkerError = "Pasirinkite kirpėją";
 	}else{
 		
-		
 		$selectWorker = test_input($_POST["selectWorker"]);
-		//echo "selectWorker = ".$selectWorker;
+
 	}
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	if (empty($_GET["name"])) {
-		//$nameErr = "Vardas privalomas";
+
 	}else{
 		$name = test_input($_GET["name"]);
 		
 		$dateTime = test_input($_GET["dateTime"]);
-		//echo "dateTime = ".$dateTime;
-		//$entityManager = getEntityManager($dbParamsConfig);
-		
+	
 		$entityManager = $container->getEntityManager();
 		
 		
 		$customer=$entityManager->getRepository("Customer")->findBy(
              array('name'=> $name) 
-             //array('id' => 'ASC')
+
         );
-		//var
-		//print_r($customer);
+
 		if(!empty($customer)){
-			//echo "<h1>customer not empty</h1>";
+
 		}else{
 			$customer=new Customer();
 			$customer->setName($name);
@@ -66,17 +62,15 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			$id = test_input($_GET["id"]);
 			$reservation=$entityManager->getRepository("Reservation")->findBy(
 				 array('id'=> $id) 
-				 //array('id' => 'ASC')
+
 			);
 			$status=$entityManager->getRepository("Status")->findBy(
 				 array('id'=> 1) 
-				 //array('id' => 'ASC')
 			);
 			$reservation[0]->setStatus($status[0]);
 			$entityManager->persist($reservation[0]);
 			$entityManager->flush();
-			//$reservationTmp=$reservation[0];
-			//$reservation=$reservationTmp;
+	
 			$reservation="";
 			
 		}else{
@@ -85,12 +79,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			$reservation->setCustomer($customer[0]);
 			$reservation->setVisitDate(new DateTime($dateTime));
 			
-			//$worker=$entityManager->getRepository("Worker")->findAll();
-			
 			$worker=$entityManager->getRepository("Worker")->findBy(
-				 //array('id'=> test_input($_GET["workerId"])) 
+
 				 array('id'=>$selectWorker) 
-				 //array('id' => 'ASC')
+
 			);
 			
 			$reservation->setWorker($worker[0]);
@@ -101,18 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	
 }
 
-/*function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}*/
-
-
 
 ?>
-
-
 
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
 <h4>Norėdami užsiregistruoti pas kirpėją</h4>
@@ -124,8 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   <option value="">--Pasirinkite--</option>
   
   <?php
-	//$entityManager = getEntityManager($dbParamsConfig);
-	
+
 	$entityManager = $container->getEntityManager();
 	
 	$workers=$entityManager->getRepository("Worker")->findAll();
@@ -140,21 +121,16 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 		echo "<option value=".$worker->getId()." ".$selected.">".$worker->getName()."</option>";
 	}
   
-  
   ?>
 </select> <span class="error">* <?php echo $selectWorkerError;?></span>
  
   <br><br>
  <input type="submit" name="saveName" value="Rodyti laisvus laikus">
  
-
 </form>
-
 
 <?php
 
-
-//echo "name = ".$name;
 
 if(($name!=="")&&($selectWorker!=="")){
 
@@ -185,16 +161,8 @@ if($reservation===""){
 
 while($workStartDate->format('H:i:s')!="20:00:00"){
 	echo "<tr>";
-	
 
     echo "<td>".$workStartDate->format('Y-m-d H:i:s')."</td>";
-	
-	/*$entityManager = getEntityManager($dbParamsConfig);
-	$worker=$entityManager->getRepository("Worker")->findBy(
-             array('id'=> $selectWorker) 
-             //array('id' => 'ASC')
-        );*/
-	
 	
 	echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?name=".$name."&workerId=".$selectWorker."&dateTime=".$workStartDate->format('Y-m-d H:i:s')."'>[Rezervuoti]</a></td>";
 	
