@@ -50,4 +50,21 @@ class ReservationRepository
 		
 	}
 	
+	public function findReservationByCustomer($id){
+		
+		$dql='SELECT r FROM Reservation r WHERE ((r.status <> 1) 
+			OR (r.status is NULL)) 
+			AND (r.customer = :customer)';
+		
+		$query=$this->entityManager->createQuery(
+			$dql
+		);
+		$parameters = array(
+            //'from' => $from,
+            'customer' => $id,
+        );
+		$query->setParameters($parameters);
+		return $query->getResult();
+	}
+	
 }

@@ -6,20 +6,48 @@ require_once('bootstrap.php');
 require_once('functions.php');
 
 $name="";
+$nameRequired=TRUE;
 $selectWorker="";
+$selectWorkerRequired=TRUE;
 $nameErr="";
 $selectWorkerError="";
 $reservation="";
+$showMyReservations=FALSE;
 $dateTime="";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	
+	//print_r($_POST);
+	
 	if (empty($_POST["name"])) {
 		$nameErr = "Vardas privalomas";
 	}else{
 		$name = test_input($_POST["name"]);
 	}
 	
-	if (empty($_POST["selectWorker"])) {
+	if(isset($_POST["myReservations"])){
+		echo "<h1>labas 1547</h1>";
+		$selectWorkerRequired=FALSE;
+		$showMyReservations=TRUE;
+		//$container->getReservationRepository()->cancelReservation($id);
+		
+		$entityManager = $container->getEntityManager();
+		$customer=$entityManager->getRepository("Customer")->findBy(
+             array('name'=> $name) 
+
+        );
+		
+		if(!empty($customer)){
+			$reservation=$container->getReservationRepository()->findReservationByCustomer($customer[0]->getId());
+			$resTmp=$reservation;
+			$reservation=null;
+			$reservation=$resTmp[0];
+			
+			//print_r($reservation);
+		}
+	}
+	
+	if ((empty($_POST["selectWorker"]))&&($selectWorkerRequired==TRUE)) {
 		$selectWorkerError = "Pasirinkite kirpėją";
 	}else{
 		
@@ -129,6 +157,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
  
   <br><br>
  <input type="submit" name="saveName" value="Rodyti laisvus laikus">
+ 
+
+ <h4>Jei jau registravotės</h4>
+
+ <input type="submit" name="myReservations" value="Mano rezervacijos">
  
 </form>
 
