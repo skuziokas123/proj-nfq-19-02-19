@@ -156,49 +156,71 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
 
 if(($name!=="")&&(($selectWorker!=="")||($selectWorkerRequired==FALSE))){
+	
+	if($showMyReservations==TRUE){
+		//echo "<h1>showMyReservations==TRUE<h1>";
+		if($reservation===""){
+			echo "<h4>Rezervacijų nerasta. Prašome registruotis.</h4>";
+		}else{
+			
+			echo "<table>";
 
-	$tomorrow = new DateTime();
-	$tomorrow->modify('+1 day');
-
-	if($reservation===""){
-
-	echo "<h3>Laisvi laikai</h3>";
-
-	echo "<h4>".$tomorrow->format('Y-m-d')." (rytoj)</h4></br>";
-
-	$workStartDate=new DateTime($tomorrow->format('Y-m-d').' 10:00:00');
-
-	}else{
-		echo "<h3>Jūs užsiregistravote</h3>";
-	}
-
-	echo "<table>";
-
-	echo "<tr>";
-	echo "<th>Laikas</th>";
-	echo "<th>Veiksmai</th>";
-
-	echo "</tr>";
-
-	if($reservation===""){
-
-		while($workStartDate->format('H:i:s')!="20:00:00"){
 			echo "<tr>";
+			echo "<th>Laikas</th>";
+			echo "<th>Veiksmai</th>";
 
-			echo "<td>".$workStartDate->format('Y-m-d H:i:s')."</td>";
-		
-			echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?name=".$name."&workerId=".$selectWorker."&dateTime=".$workStartDate->format('Y-m-d H:i:s')."'>[Rezervuoti]</a></td>";
-			
-			$workStartDate->modify('+15 min');
-			
 			echo "</tr>";
+			
+			echo "<td>".$reservation->getVisitDate()->format('Y-m-d H:i:s')."</td>";
+			echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?action=cancelReservation&id=".$reservation->getId()."&workerId=".$selectWorker."&name=".$name."&dateTime=".$reservation->getVisitDate()->format('Y-m-d H:i:s')."'>[Atšaukti]</a></td>";
+			echo "</table>";
+			
 		}
 	}else{
-		 echo "<td>".$reservation->getVisitDate()->format('Y-m-d H:i:s')."</td>";
-		echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?action=cancelReservation&id=".$reservation->getId()."&workerId=".$selectWorker."&name=".$name."&dateTime=".$reservation->getVisitDate()->format('Y-m-d H:i:s')."'>[Atšaukti]</a></td>";
-	}
 
-	echo "</table>";
+		$tomorrow = new DateTime();
+		$tomorrow->modify('+1 day');
+
+		if($reservation===""){
+
+		echo "<h3>Laisvi laikai</h3>";
+
+		echo "<h4>".$tomorrow->format('Y-m-d')." (rytoj)</h4></br>";
+
+		$workStartDate=new DateTime($tomorrow->format('Y-m-d').' 10:00:00');
+
+		}else{
+			echo "<h3>Jūs užsiregistravote</h3>";
+		}
+
+		echo "<table>";
+
+		echo "<tr>";
+		echo "<th>Laikas</th>";
+		echo "<th>Veiksmai</th>";
+
+		echo "</tr>";
+
+		if($reservation===""){
+
+			while($workStartDate->format('H:i:s')!="20:00:00"){
+				echo "<tr>";
+
+				echo "<td>".$workStartDate->format('Y-m-d H:i:s')."</td>";
+			
+				echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?name=".$name."&workerId=".$selectWorker."&dateTime=".$workStartDate->format('Y-m-d H:i:s')."'>[Rezervuoti]</a></td>";
+				
+				$workStartDate->modify('+15 min');
+				
+				echo "</tr>";
+			}
+		}else{
+			 echo "<td>".$reservation->getVisitDate()->format('Y-m-d H:i:s')."</td>";
+			echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?action=cancelReservation&id=".$reservation->getId()."&workerId=".$selectWorker."&name=".$name."&dateTime=".$reservation->getVisitDate()->format('Y-m-d H:i:s')."'>[Atšaukti]</a></td>";
+		}
+
+		echo "</table>";
+	}
 }
 
 include 'footer.php';
