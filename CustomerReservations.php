@@ -29,8 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		echo "<h1>labas 1547</h1>";
 		$selectWorkerRequired=FALSE;
 		$showMyReservations=TRUE;
-		//$container->getReservationRepository()->cancelReservation($id);
-		
+	
 		$entityManager = $container->getEntityManager();
 		$customer=$entityManager->getRepository("Customer")->findBy(
              array('name'=> $name) 
@@ -42,8 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$resTmp=$reservation;
 			$reservation=null;
 			$reservation=$resTmp[0];
-			
-			//print_r($reservation);
+
 		}
 	}
 	
@@ -91,17 +89,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			
 			$container->getReservationRepository()->cancelReservation($id);
 			
-			/*$reservation=$entityManager->getRepository("Reservation")->findBy(
-				 array('id'=> $id) 
-
-			);
-			$status=$entityManager->getRepository("Status")->findBy(
-				 array('id'=> 1) 
-			);
-			$reservation[0]->setStatus($status[0]);
-			$entityManager->persist($reservation[0]);
-			$entityManager->flush();*/
-	
 			$reservation="";
 			
 		}else{
@@ -168,50 +155,50 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 <?php
 
 
-if(($name!=="")&&($selectWorker!=="")){
+if(($name!=="")&&(($selectWorker!=="")||($selectWorkerRequired==FALSE))){
 
-$tomorrow = new DateTime();
-$tomorrow->modify('+1 day');
+	$tomorrow = new DateTime();
+	$tomorrow->modify('+1 day');
 
-if($reservation===""){
+	if($reservation===""){
 
-echo "<h3>Laisvi laikai</h3>";
+	echo "<h3>Laisvi laikai</h3>";
 
-echo "<h4>".$tomorrow->format('Y-m-d')." (rytoj)</h4></br>";
+	echo "<h4>".$tomorrow->format('Y-m-d')." (rytoj)</h4></br>";
 
-$workStartDate=new DateTime($tomorrow->format('Y-m-d').' 10:00:00');
+	$workStartDate=new DateTime($tomorrow->format('Y-m-d').' 10:00:00');
 
-}else{
-	echo "<h3>Jūs užsiregistravote</h3>";
-}
+	}else{
+		echo "<h3>Jūs užsiregistravote</h3>";
+	}
 
-echo "<table>";
+	echo "<table>";
 
-echo "<tr>";
-echo "<th>Laikas</th>";
-echo "<th>Veiksmai</th>";
-
-echo "</tr>";
-
-if($reservation===""){
-
-while($workStartDate->format('H:i:s')!="20:00:00"){
 	echo "<tr>";
+	echo "<th>Laikas</th>";
+	echo "<th>Veiksmai</th>";
 
-    echo "<td>".$workStartDate->format('Y-m-d H:i:s')."</td>";
-	
-	echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?name=".$name."&workerId=".$selectWorker."&dateTime=".$workStartDate->format('Y-m-d H:i:s')."'>[Rezervuoti]</a></td>";
-	
-	$workStartDate->modify('+15 min');
-	
 	echo "</tr>";
-}
-}else{
-	 echo "<td>".$reservation->getVisitDate()->format('Y-m-d H:i:s')."</td>";
-	echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?action=cancelReservation&id=".$reservation->getId()."&workerId=".$selectWorker."&name=".$name."&dateTime=".$reservation->getVisitDate()->format('Y-m-d H:i:s')."'>[Atšaukti]</a></td>";
-}
 
-echo "</table>";
+	if($reservation===""){
+
+		while($workStartDate->format('H:i:s')!="20:00:00"){
+			echo "<tr>";
+
+			echo "<td>".$workStartDate->format('Y-m-d H:i:s')."</td>";
+		
+			echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?name=".$name."&workerId=".$selectWorker."&dateTime=".$workStartDate->format('Y-m-d H:i:s')."'>[Rezervuoti]</a></td>";
+			
+			$workStartDate->modify('+15 min');
+			
+			echo "</tr>";
+		}
+	}else{
+		 echo "<td>".$reservation->getVisitDate()->format('Y-m-d H:i:s')."</td>";
+		echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?action=cancelReservation&id=".$reservation->getId()."&workerId=".$selectWorker."&name=".$name."&dateTime=".$reservation->getVisitDate()->format('Y-m-d H:i:s')."'>[Atšaukti]</a></td>";
+	}
+
+	echo "</table>";
 }
 
 include 'footer.php';
