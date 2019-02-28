@@ -64,10 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	
 		$entityManager = $container->getEntityManager();
 		
-		
 		$customer=$entityManager->getRepository("Customer")->findBy(
              array('name'=> $name) 
-
         );
 
 		if(!empty($customer)){
@@ -91,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			
 			$reservation="";
 			
-		}else{
+		}elseif((isset($_GET["action"]))&&($_GET["action"]=="register")){
 		
 			$reservation=new Reservation();
 			$reservation->setCustomer($customer[0]);
@@ -108,9 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 			$entityManager->flush();
 		}
 	}
-	
 }
-
 
 ?>
 
@@ -208,7 +204,7 @@ if(($name!=="")&&(($selectWorker!=="")||($selectWorkerRequired==FALSE))){
 
 				echo "<td>".$workStartDate->format('Y-m-d H:i:s')."</td>";
 			
-				echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?name=".$name."&workerId=".$selectWorker."&dateTime=".$workStartDate->format('Y-m-d H:i:s')."'>[Rezervuoti]</a></td>";
+				echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?action=register&name=".$name."&workerId=".$selectWorker."&dateTime=".$workStartDate->format('Y-m-d H:i:s')."'>[Rezervuoti]</a></td>";
 				
 				$workStartDate->modify('+15 min');
 				
