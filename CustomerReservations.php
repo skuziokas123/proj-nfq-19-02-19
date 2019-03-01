@@ -186,8 +186,10 @@ if(($name!=="")&&(($selectWorker!=="")||($selectWorkerRequired==FALSE))){
 		}else{
 			echo "<h3>Jūs užsiregistravote</h3>";
 		}
+		
+		require_once('./app/Resources/views/table-show-free-reservations.php');
 
-		echo "<table>";
+		/*echo "<table>";
 
 		echo "<tr>";
 		echo "<th>Laikas</th>";
@@ -209,14 +211,13 @@ if(($name!=="")&&(($selectWorker!=="")||($selectWorkerRequired==FALSE))){
 				echo "</tr>";
 			}
 		}else{
-			require('./app/Resources/views/cancel-reservation-part.php');
+			require('./app/Resources/views/cancel-reservation-part.php');*/
 			
 			/*echo "<td>".$reservation->getVisitDate()->format('Y-m-d H:i:s')."</td>";
 			echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?action=cancelReservation&id=".$reservation->getId()."&workerId=".$selectWorker."&name=".$name."&dateTime=".$reservation->getVisitDate()->format('Y-m-d H:i:s')."'>[Atšaukti]</a></td>";*/
-		}
+		//}
 
-		echo "</table>";
+		//echo "</table>";
 	}
 }
-
 include 'footer.php';
