@@ -33,7 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$entityManager = $container->getEntityManager();
 		$customer=$entityManager->getRepository("Customer")->findBy(
              array('name'=> $name) 
-
         );
 		
 		if(!empty($customer)){
@@ -41,7 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$resTmp=$reservation;
 			$reservation=null;
 			$reservation=$resTmp[0];
-
 		}
 	}
 	
@@ -50,7 +48,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}else{
 		
 		$selectWorker = test_input($_POST["selectWorker"]);
-
 	}
 }
 
@@ -140,7 +137,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
  
   <br><br>
  <input type="submit" name="saveName" value="Rodyti laisvus laikus">
- 
 
  <h4>Jei jau registravotės</h4>
 
@@ -159,7 +155,9 @@ if(($name!=="")&&(($selectWorker!=="")||($selectWorkerRequired==FALSE))){
 			echo "<h4>Rezervacijų nerasta. Prašome registruotis.</h4>";
 		}else{
 			
-			echo "<table>";
+			require_once('./app/Resources/views/table-show-active-reservation.php');
+			
+			/*echo "<table>";
 
 			echo "<tr>";
 			echo "<th>Laikas</th>";
@@ -169,7 +167,7 @@ if(($name!=="")&&(($selectWorker!=="")||($selectWorkerRequired==FALSE))){
 			
 			echo "<td>".$reservation->getVisitDate()->format('Y-m-d H:i:s')."</td>";
 			echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?action=cancelReservation&id=".$reservation->getId()."&workerId=".$selectWorker."&name=".$name."&dateTime=".$reservation->getVisitDate()->format('Y-m-d H:i:s')."'>[Atšaukti]</a></td>";
-			echo "</table>";
+			echo "</table>";*/
 			
 		}
 	}else{
@@ -211,8 +209,10 @@ if(($name!=="")&&(($selectWorker!=="")||($selectWorkerRequired==FALSE))){
 				echo "</tr>";
 			}
 		}else{
-			 echo "<td>".$reservation->getVisitDate()->format('Y-m-d H:i:s')."</td>";
-			echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?action=cancelReservation&id=".$reservation->getId()."&workerId=".$selectWorker."&name=".$name."&dateTime=".$reservation->getVisitDate()->format('Y-m-d H:i:s')."'>[Atšaukti]</a></td>";
+			require('./app/Resources/views/cancel-reservation-part.php');
+			
+			/*echo "<td>".$reservation->getVisitDate()->format('Y-m-d H:i:s')."</td>";
+			echo "<td><a href='".htmlspecialchars($_SERVER["PHP_SELF"])."?action=cancelReservation&id=".$reservation->getId()."&workerId=".$selectWorker."&name=".$name."&dateTime=".$reservation->getVisitDate()->format('Y-m-d H:i:s')."'>[Atšaukti]</a></td>";*/
 		}
 
 		echo "</table>";
