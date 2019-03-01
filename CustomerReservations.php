@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 	
 	if(isset($_POST["myReservations"])){
-		echo "<h1>labas 1547</h1>";
+		//echo "<h1>labas 1547</h1>";
 		$selectWorkerRequired=FALSE;
 		$showMyReservations=TRUE;
 	
@@ -177,11 +177,31 @@ if(($name!=="")&&(($selectWorker!=="")||($selectWorkerRequired==FALSE))){
 
 		if($reservation===""){
 
-		echo "<h3>Laisvi laikai</h3>";
+			echo "<h3>Laisvi laikai</h3>";
 
-		echo "<h4>".$tomorrow->format('Y-m-d')." (rytoj)</h4></br>";
+			echo "<h4>".$tomorrow->format('Y-m-d')." (rytoj)</h4></br>";
 
-		$workStartDate=new DateTime($tomorrow->format('Y-m-d').' 10:00:00');
+			$workStartDate=new DateTime($tomorrow->format('Y-m-d').' 10:00:00');
+			
+			//Reikes rasti aktyvias rezervacijas rytojaus datai
+			//Spausdinant laisvus laikus tikrinti, ar laikas laisvas
+			//$reservedReservations=$container->getReservationRepository()->findUpcommingReservations();
+			
+			
+			//getReservationsManager
+			$reservationsManager=$container->getReservationsManager();
+			
+			/*if($reservationsManager->isVisitDateReserved("2019-03-02 10:45:00")){
+				echo "<h1>TRUE</h1>";
+			}else{
+				echo "<h1>FALSE</h1>";
+			}*/
+			
+			//print_r($reservationsManager->isVisitDateReserved("2019-03-01 16:00"));
+			
+			//print_r($reservationsManager);
+			
+			//print_r($reservedReservations[0]);
 
 		}else{
 			echo "<h3>Jūs užsiregistravote</h3>";

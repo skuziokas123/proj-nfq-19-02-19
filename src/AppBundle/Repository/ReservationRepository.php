@@ -67,4 +67,38 @@ class ReservationRepository
 		return $query->getResult();
 	}
 	
+	public function findReservationsByDate($date){
+		
+		$dql='SELECT r FROM Reservation r WHERE ((r.status <> 1) 
+			OR (r.status is NULL)) 
+			AND (r.visitDate LIKE :visitDate)';
+		
+		$query=$this->entityManager->createQuery(
+			$dql
+		);
+		$parameters = array(
+            //'from' => $from,
+            'visitDate' => '%'.$date.'%',
+        );
+		$query->setParameters($parameters);
+		return $query->getResult();
+	}
+	
+	public function findUpcommingReservations(){
+		$dql='SELECT r FROM Reservation r WHERE ((r.status <> 1) 
+			OR (r.status is NULL)) 
+			AND (r.visitDate > CURRENT_TIMESTAMP())';
+		
+		$query=$this->entityManager->createQuery(
+			$dql
+		);
+		/*$parameters = array(
+            //'from' => $from,
+            'visitDate' => '%'.$date.'%',
+        );*/
+		//$query->setParameters($parameters);
+		return $query->getResult();
+		
+	}
+	
 }

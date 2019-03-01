@@ -3,11 +3,23 @@ class Container{
 	private $entityManager=null;
 	private $dbconfig=null;
 	private $reservationRepository=null;
+	private $reservationsManager=null;
 	
 	public function __construct($dbconfig)
     {
         $this->dbconfig=$dbconfig;
     }
+	
+	public function getReservationsManager(){
+		if($this->reservationsManager==null){
+			
+			$this->reservationsManager=new ReservationsManager(
+				$this->getReservationRepository()->findUpcommingReservations()
+			);
+			
+		}
+		return $this->reservationsManager;
+	}
 	
 	public function getReservationRepository(){
 		
